@@ -1,10 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Rental } from './rental.model';
+import { HttpClient } from '@angular/common/http';
  @Injectable()
 export class RentalService {
+
+  /*
+
    private rentals: Rental[] = [{
-    id: "1",
+    _id: "1",
     title: "Central Apartment",
     city: "New York",
     street: "Times Sqaure",
@@ -17,7 +21,7 @@ export class RentalService {
     createdAt: "24/12/2017"
   },
   {
-    id: "2",
+    _id: "2",
     title: "Central Apartment 2",
     city: "San Francisco",
     street: "Main street",
@@ -30,7 +34,7 @@ export class RentalService {
     createdAt: "24/12/2017"
   },
   {
-    id: "3",
+    _id: "3",
     title: "Central Apartment 3",
     city: "Bratislava",
     street: "Hlavna",
@@ -43,7 +47,7 @@ export class RentalService {
     createdAt: "24/12/2017"
   },
   {
-    id: "4",
+    _id: "4",
     title: "Central Apartment 4",
     city: "Berlin",
     street: "Haupt strasse",
@@ -72,4 +76,17 @@ export class RentalService {
       }, 1000);
     });
   }
+
+  */
+
+ constructor(private http: HttpClient) {}
+
+  public getRentalById(rentalId: string): Observable<any> {
+    return this.http.get('/api/v1/rentals/' + rentalId);
+  }
+
+  public getRentals(): Observable<any> {
+    return this.http.get('/api/v1/rentals');
+  }
+
 }
