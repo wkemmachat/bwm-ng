@@ -2,8 +2,7 @@ const User = require('../models/user');
 const { normalizeErrors } = require('../helpers/mongoose');
 const jwt = require('jsonwebtoken');
 const config = require('../config/dev');
-
-exports.auth =  function(req, res) {
+ exports.auth =  function(req, res) {
   const { email, password } = req.body;
    if (!password || !email) {
     return res.status(422).send({errors: [{title: 'Data missing!', detail: 'Provide email and password!'}]});
@@ -26,16 +25,8 @@ exports.auth =  function(req, res) {
     }
   });
 }
-
-
-
-exports.register =  function(req, res) {
+ exports.register =  function(req, res) {
   const { username, email, password, passwordConfirmation } = req.body;
-
-  // console.log(req.body.username);
-  // console.log(req.body.email);
-  // console.log(req.body.password);
-
    if (!password || !email) {
     return res.status(422).send({errors: [{title: 'Data missing!', detail: 'Provide email and password!'}]});
   }
@@ -62,8 +53,7 @@ exports.register =  function(req, res) {
     })
   })
 }
-
-exports.authMiddleware = function(req, res, next) {
+ exports.authMiddleware = function(req, res, next) {
   const token = req.headers.authorization;
    if (token) {
     const user = parseToken(token);
@@ -82,11 +72,9 @@ exports.authMiddleware = function(req, res, next) {
     return notAuthorized(res);
   }
 }
-
-function parseToken(token) {
+ function parseToken(token) {
   return jwt.verify(token.split(' ')[1], config.SECRET);
 }
-
-function notAuthorized(res) {
+ function notAuthorized(res) {
   return res.status(401).send({errors: [{title: 'Not authorized!', detail: 'You need to login to get access!'}]});
 }
