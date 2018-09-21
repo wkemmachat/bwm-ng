@@ -2,7 +2,8 @@ const User = require('../models/user');
 const { normalizeErrors } = require('../helpers/mongoose');
 const jwt = require('jsonwebtoken');
 const config = require('../config/dev');
- exports.auth =  function(req, res) {
+
+exports.auth =  function(req, res) {
   const { email, password } = req.body;
    if (!password || !email) {
     return res.status(422).send({errors: [{title: 'Data missing!', detail: 'Provide email and password!'}]});
@@ -25,7 +26,9 @@ const config = require('../config/dev');
     }
   });
 }
- exports.register =  function(req, res) {
+
+
+exports.register =  function(req, res) {
   const { username, email, password, passwordConfirmation } = req.body;
    if (!password || !email) {
     return res.status(422).send({errors: [{title: 'Data missing!', detail: 'Provide email and password!'}]});
